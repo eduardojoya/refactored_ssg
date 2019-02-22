@@ -1,1 +1,1 @@
-# refactored_ssg
+Must run build.py to generate page 
