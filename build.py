@@ -1,6 +1,4 @@
-def main():
-    #List with dictionary for information on site pages
-    pages = [    
+pages = [    
         {   'filename': 'content/index.html',
             'output': 'docs/index.html',
             'title': 'About Me',   
@@ -28,19 +26,24 @@ def main():
        ]
 
 
-    for page in pages:
-          
-        def apply_template(content): #Read in template, do string replacing and return result 
-                template = open('templates/base.html').read() #reads entire template
-                index_content = open(page['filename']).read() #reads in content of each page 
-                finished_index_page = template.replace('{{content}}', index_content) #use string replace for content
-                finished_index_page = finished_index_page.replace('{{title}}', page['title']) #use string replace for title 
-                return finished_index_page #return results 
-            
-                
-        def output_file():
-                content = open(page['output']).read()
-                finished_html = apply_template(content) #invoke apply_template function and write into files in 'docs' 
+def apply_template(template, page_title, file_name): 
+    index_content = open(file_name).read()  
+    finished_index_page = template.replace('{{content}}', index_content) 
+    finished_index_page = finished_index_page.replace('{{title}}', page_title)  
+    return finished_index_page 
+
+def output_page(template,page):
+    file_name = page['filename']
+    page_output = page['output']
+    page_title = page['title']
+    
+    output_html = apply_template(template, page_title, file_name)
+    open(page_output, 'w+').write(output_html)
+
+def main():
+    template = open('templates/base.html').read() 
+    for page in pages:    
+        output_page(template, page)
 
 if __name__ == "__main__": 
     main()
