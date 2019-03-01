@@ -1,1 +1,1 @@
-Must run build.py to generate page 
+Static Site Generator using python refactored functions 
